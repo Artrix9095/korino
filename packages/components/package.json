@@ -1,0 +1,29 @@
+{
+  "name": "@korino/components",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@korino/eslint-config": "workspace:*",
+    "@korino/prettier-config": "workspace:*",
+    "@korino/tsconfig": "workspace:*",
+    "eslint": "^9.4.0",
+    "prettier": "^3.3.1",
+    "typescript": "^5.4.5"
+  },
+  "prettier": "@korino/prettier-config",
+  "dependencies": {
+    "framer-motion": "^11.3.27",
+    "@korino/ui": "workspace:*"
+  }
+}
