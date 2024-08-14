@@ -8,7 +8,7 @@ importers:
 
   .:
     devDependencies:
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:tooling/prettier
       '@turbo/gen':
@@ -30,16 +30,16 @@ importers:
         specifier: 0.32.0
         version: 0.32.0
     devDependencies:
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@acme/tailwind-config':
+      '@korino/tailwind-config':
         specifier: workspace:*
         version: link:../../tooling/tailwind
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@types/node':
@@ -63,13 +63,13 @@ importers:
 
   apps/desktop:
     dependencies:
-      '@acme/api':
+      '@korino/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@acme/auth':
+      '@korino/auth':
         specifier: workspace:*
         version: link:../../packages/auth
-      '@acme/ui':
+      '@korino/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tanstack/react-query':
@@ -112,19 +112,19 @@ importers:
         specifier: 2.2.1
         version: 2.2.1
     devDependencies:
-      '@acme/db':
+      '@korino/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@acme/tailwind-config':
+      '@korino/tailwind-config':
         specifier: workspace:*
         version: link:../../tooling/tailwind
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@tanstack/router-cli':
@@ -163,7 +163,7 @@ importers:
 
   apps/mobile:
     dependencies:
-      '@acme/ui':
+      '@korino/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@bacons/text-decoder':
@@ -245,19 +245,19 @@ importers:
         specifier: 2.2.1
         version: 2.2.1
     devDependencies:
-      '@acme/api':
+      '@korino/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@acme/tailwind-config':
+      '@korino/tailwind-config':
         specifier: workspace:*
         version: link:../../tooling/tailwind
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@babel/core':
@@ -290,19 +290,19 @@ importers:
 
   apps/web:
     dependencies:
-      '@acme/api':
+      '@korino/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@acme/auth':
+      '@korino/auth':
         specifier: workspace:*
         version: link:../../packages/auth
-      '@acme/db':
+      '@korino/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@acme/ui':
+      '@korino/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@acme/validators':
+      '@korino/validators':
         specifier: workspace:*
         version: link:../../packages/validators
       '@t3-oss/env-nextjs':
@@ -336,16 +336,16 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@acme/tailwind-config':
+      '@korino/tailwind-config':
         specifier: workspace:*
         version: link:../../tooling/tailwind
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@types/node':
@@ -378,13 +378,13 @@ importers:
 
   packages/api:
     dependencies:
-      '@acme/auth':
+      '@korino/auth':
         specifier: workspace:*
         version: link:../auth
-      '@acme/db':
+      '@korino/db':
         specifier: workspace:*
         version: link:../db
-      '@acme/validators':
+      '@korino/validators':
         specifier: workspace:*
         version: link:../validators
       '@trpc/server':
@@ -397,13 +397,13 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       eslint:
@@ -418,7 +418,7 @@ importers:
 
   packages/auth:
     dependencies:
-      '@acme/db':
+      '@korino/db':
         specifier: workspace:*
         version: link:../db
       '@auth/core':
@@ -446,13 +446,13 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       eslint:
@@ -483,13 +483,13 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       dotenv-cli:
@@ -544,16 +544,16 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.4(ts-node@10.9.2(@types/node@22.1.0)(typescript@5.5.4)))
     devDependencies:
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@acme/tailwind-config':
+      '@korino/tailwind-config':
         specifier: workspace:*
         version: link:../../tooling/tailwind
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@types/react':
@@ -584,13 +584,13 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../../tooling/eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../../tooling/prettier
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
       eslint:
@@ -627,10 +627,10 @@ importers:
         specifier: rc-v8
         version: 8.0.0-alpha.62(eslint@9.8.0)(typescript@5.5.4)
     devDependencies:
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../prettier
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../typescript
       eslint:
@@ -657,7 +657,7 @@ importers:
         specifier: ^0.5.14
         version: 0.5.14(@ianvs/prettier-plugin-sort-imports@4.3.0(prettier@3.3.3))(prettier@3.3.3)
     devDependencies:
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../typescript
       typescript:
@@ -676,13 +676,13 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.4(ts-node@10.9.2(@types/node@22.1.0)(typescript@5.5.4)))
     devDependencies:
-      '@acme/eslint-config':
+      '@korino/eslint-config':
         specifier: workspace:*
         version: link:../eslint
-      '@acme/prettier-config':
+      '@korino/prettier-config':
         specifier: workspace:*
         version: link:../prettier
-      '@acme/tsconfig':
+      '@korino/tsconfig':
         specifier: workspace:*
         version: link:../typescript
       eslint:

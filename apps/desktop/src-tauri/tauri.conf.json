@@ -25,11 +25,11 @@
   "plugins": {
     "deep-link": {
       "mobile": [
-        { "host": "acme.t3.com", "pathPrefix": ["/login"] },
-        { "host": "acme.com" }
+        { "host": "korino.t3.com", "pathPrefix": ["/login"] },
+        { "host": "korino.com" }
       ],
       "desktop": {
-        "schemes": ["acme"]
+        "schemes": ["korino"]
       }
     }
   },

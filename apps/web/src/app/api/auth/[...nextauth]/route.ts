@@ -1,11 +1,11 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import { handlers, isSecureContext } from "@acme/auth";
+import { handlers, isSecureContext } from "@korino/auth";
 
 export const runtime = "edge";
 
-const REDIRECT_COOKIE_NAME = "__acme-redirect-state";
+const REDIRECT_COOKIE_NAME = "__korino-redirect-state";
 
 const AUTH_COOKIE_PATTERN = /authjs\.session-token=([^;]+)/;
 

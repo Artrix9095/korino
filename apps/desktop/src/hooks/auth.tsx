@@ -9,7 +9,7 @@ import { getAPIUrl } from "~/util/api";
 
 export const signIn = () =>
   new Promise<string>((res) => {
-    const signInUrl = `${getAPIUrl()}/api/auth/signin?redirect=acme://login`;
+    const signInUrl = `${getAPIUrl()}/api/auth/signin?redirect=korino://login`;
 
     void open(signInUrl);
     // onOpenUrlj(console.log).finally(console.log);
@@ -33,9 +33,9 @@ export const useSignIn = () => {
   const router = useRouter();
 
   return async () => {
-    if (!(await isRegistered("acme"))) {
-      await register("acme");
-      console.log('Registered "acme"');
+    if (!(await isRegistered("korino"))) {
+      await register("korino");
+      console.log('Registered "korino"');
     }
 
     await signIn();

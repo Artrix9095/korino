@@ -1,5 +1,5 @@
 {
-  "name": "@acme/eslint-config",
+  "name": "@korino/eslint-config",
   "private": true,
   "version": "0.3.0",
   "type": "module",
@@ -23,11 +23,11 @@
     "typescript-eslint": "rc-v8"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
+    "@korino/prettier-config": "workspace:*",
+    "@korino/tsconfig": "workspace:*",
     "eslint": "^9.8.0",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@korino/prettier-config"
 }

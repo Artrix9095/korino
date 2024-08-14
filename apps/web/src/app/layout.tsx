@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
 
-import { cn } from "@acme/ui";
-import { ThemeProvider, ThemeToggle } from "@acme/ui/theme";
-import { Toaster } from "@acme/ui/toast";
+import { cn } from "@korino/ui";
+import { ThemeProvider, ThemeToggle } from "@korino/ui/theme";
+import { Toaster } from "@korino/ui/toast";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
-import "../../node_modules/@acme/ui/styles/globals.css";
+import "../../node_modules/@korino/ui/styles/globals.css";
 
 import { env } from "~/env";
 

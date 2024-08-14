@@ -6,9 +6,9 @@ import ReactDOM from "react-dom/client";
 import { routeTree } from "~/routeTree.gen";
 import { TRPCProvider } from "~/trpc";
 
-import "../node_modules/@acme/ui/styles/globals.css"; // Hack for now
+import "../node_modules/@korino/ui/styles/globals.css"; // Hack for now
 
-import { ThemeProvider } from "@acme/ui/theme";
+import { ThemeProvider } from "@korino/ui/theme";
 
 // Create a new router instance
 const router = createRouter({ routeTree });

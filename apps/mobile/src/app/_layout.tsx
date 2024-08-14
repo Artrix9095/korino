@@ -6,7 +6,7 @@ import { useColorScheme } from "nativewind";
 
 import { TRPCProvider } from "~/utils/api";
 
-import "@acme/ui/styles/globals.css";
+import "@korino/ui/styles/globals.css";
 
 // This is the main layout of the app
 // It wraps your pages with the providers they need

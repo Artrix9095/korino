@@ -1,9 +1,9 @@
 "use client";
 
-import type { RouterOutputs } from "@acme/api";
-import { CreatePostSchema } from "@acme/db/schema";
-import { cn } from "@acme/ui";
-import { Button } from "@acme/ui/button";
+import type { RouterOutputs } from "@korino/api";
+import { CreatePostSchema } from "@korino/db/schema";
+import { cn } from "@korino/ui";
+import { Button } from "@korino/ui/button";
 import {
   Form,
   FormControl,
@@ -11,9 +11,9 @@ import {
   FormItem,
   FormMessage,
   useForm,
-} from "@acme/ui/form";
-import { Input } from "@acme/ui/input";
-import { toast } from "@acme/ui/toast";
+} from "@korino/ui/form";
+import { Input } from "@korino/ui/input";
+import { toast } from "@korino/ui/toast";
 
 import { api } from "~/trpc";
 
