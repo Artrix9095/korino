@@ -75,9 +75,6 @@ importers:
       '@korino/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@kuyoonjo/tauri-plugin-udp':
-        specifier: ^0.1.1
-        version: 0.1.1
       '@tanstack/react-query':
         specifier: ^5.51.21
         version: 5.51.21(react@18.3.1)
@@ -696,7 +693,7 @@ importers:
         version: 7.34.3(eslint@9.8.0)
       eslint-plugin-react-hooks:
         specifier: rc
-        version: 5.1.0-rc-49496d49-20240814(eslint@9.8.0)
+        version: 5.1.0-rc-19bd26be-20240815(eslint@9.8.0)
       eslint-plugin-turbo:
         specifier: ^2.0.3
         version: 2.0.6(eslint@9.8.0)
@@ -2676,9 +2673,6 @@ packages:
   '@kamilkisiela/fast-url-parser@1.1.4':
     resolution: {integrity: sha512-gbkePEBupNydxCelHCESvFSFM8XPh1Zs/OAVRW/rKpEqPAl5PbOM90Si8mv9bvnR53uPD2s/FiRxdvSejpRJew==}
 
-  '@kuyoonjo/tauri-plugin-udp@0.1.1':
-    resolution: {integrity: sha512-nDZ3+aaTZOjK7zeo8SNv/VOsZ2XWOJj8QhmRyeLI1jQjCQD1nRjZ7NZy4K3O+T1L6dnfzwPbq8ogPrWbfZO/Sw==}
-
   '@mapbox/node-pre-gyp@1.0.11':
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
@@ -3846,10 +3840,6 @@ packages:
 
   '@tanstack/store@0.5.5':
     resolution: {integrity: sha512-EOSrgdDAJExbvRZEQ/Xhh9iZchXpMN+ga1Bnk8Nmygzs8TfiE6hbzThF+Pr2G19uHL6+DTDTHhJ8VQiOd7l4tA==}
-
-  '@tauri-apps/api@2.0.0-beta.12':
-    resolution: {integrity: sha512-77OvAnsExtiprnjQcvmDyZGfnIvMF/zVL5+8Vkl1R8o8E3iDtvEJZpbbH1F4dPtNa3gr4byp/5dm8hAa1+r3AA==}
-    engines: {node: '>= 18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
 
   '@tauri-apps/api@2.0.0-rc.0':
     resolution: {integrity: sha512-v454Qs3REHc3Za59U+/eSmBsdmF+3NE5+76+lFDaitVqN4ZglDHENDaMARYKGJVZuxiSkzyqG0SeG7lLQjVkPA==}
@@ -5511,8 +5501,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react-hooks@5.1.0-rc-49496d49-20240814:
-    resolution: {integrity: sha512-A5hwoU0WxNLjuPa9vH0+4Sh+GOcfBIgZJ0cbwu9UECyD8VbIv+N3all4yyHqFQqcz10qzoHHLSuRFE4O7AC5PQ==}
+  eslint-plugin-react-hooks@5.1.0-rc-19bd26be-20240815:
+    resolution: {integrity: sha512-ZfRFl05f62HZra++udScYiLMhkH67/agk/s9eru5qCn/gXbGEIvhCH/25zp9pfIK8gl8zlNIYqo1A5Hu2rzOFQ==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -12270,11 +12260,6 @@ snapshots:
 
   '@kamilkisiela/fast-url-parser@1.1.4': {}
 
-  '@kuyoonjo/tauri-plugin-udp@0.1.1':
-    dependencies:
-      '@tauri-apps/api': 2.0.0-beta.12
-      buffer: 6.0.3
-
   '@mapbox/node-pre-gyp@1.0.11':
     dependencies:
       detect-libc: 2.0.3
@@ -13582,8 +13567,6 @@ snapshots:
       - supports-color
 
   '@tanstack/store@0.5.5': {}
-
-  '@tauri-apps/api@2.0.0-beta.12': {}
 
   '@tauri-apps/api@2.0.0-rc.0': {}
 
@@ -15515,7 +15498,7 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-react-hooks@5.1.0-rc-49496d49-20240814(eslint@9.8.0):
+  eslint-plugin-react-hooks@5.1.0-rc-19bd26be-20240815(eslint@9.8.0):
     dependencies:
       eslint: 9.8.0
 
