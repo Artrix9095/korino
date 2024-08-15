@@ -13,3 +13,4 @@ export {
   validateToken,
   isSecureContext,
 } from "./config";
+export { default as AnilistProvider } from "./AnilistProvider";
