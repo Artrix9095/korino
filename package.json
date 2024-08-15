@@ -21,7 +21,8 @@
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
     "typecheck": "turbo run typecheck",
-    "ui-add": "turbo run ui-add"
+    "ui-add": "turbo run ui-add",
+    "bump": "changeset version && node scripts/postversion.js"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.7",
