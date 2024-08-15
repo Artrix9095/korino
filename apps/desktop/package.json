@@ -11,9 +11,9 @@
     "preview": "vite preview",
     "generate-routes": "tsr generate",
     "tauri": "tauri",
-    "clean": "rm -rf .turbo node_modules",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
+    "clean": "rm -rf .turbo node_modules src-tauri/target src-tauri/gen",
+    "format": "prettier --check . --ignore-path ../../.gitignore && cargo fmt --check --manifest-path src-tauri/Cargo.toml",
+    "lint": "eslint && cargo check --manifest-path src-tauri/Cargo.toml",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
