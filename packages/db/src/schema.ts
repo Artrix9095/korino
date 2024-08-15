@@ -32,14 +32,14 @@ export const CreatePostSchema = createInsertSchema(Post, {
 });
 
 export const User = pgTable("user", {
-  id: uuid("id").notNull().primaryKey().defaultRandom(),
-  name: varchar("name", { length: 255 }),
-  email: varchar("email", { length: 255 }).notNull(),
-  emailVerified: timestamp("emailVerified", {
-    mode: "date",
-    withTimezone: true,
-  }),
-  image: varchar("image", { length: 255 }),
+  id: uuid("id").notNull().primaryKey(),
+  name: text("name").notNull(),
+  // email: text("email"),
+  // emailVerified: timestamp("emailVerified", {
+  //   mode: "date",
+  //   withTimezone: true,
+  // }),
+  image: text("image"),
 });
 
 export const UserRelations = relations(User, ({ many }) => ({
@@ -52,18 +52,18 @@ export const Account = pgTable(
     userId: uuid("userId")
       .notNull()
       .references(() => User.id, { onDelete: "cascade" }),
-    type: varchar("type", { length: 255 })
+    type: text("type")
       .$type<"email" | "oauth" | "oidc" | "webauthn">()
       .notNull(),
-    provider: varchar("provider", { length: 255 }).notNull(),
-    providerAccountId: varchar("providerAccountId", { length: 255 }).notNull(),
-    refresh_token: varchar("refresh_token", { length: 255 }),
+    provider: text("provider").notNull(),
+    providerAccountId: text("providerAccountId").notNull(),
+    refresh_token: text("refresh_token"),
     access_token: text("access_token"),
     expires_at: integer("expires_at"),
-    token_type: varchar("token_type", { length: 255 }),
-    scope: varchar("scope", { length: 255 }),
+    token_type: text("token_type"),
+    scope: text("scope"),
     id_token: text("id_token"),
-    session_state: varchar("session_state", { length: 255 }),
+    session_state: text("session_state"),
   },
   (account) => ({
     compoundKey: primaryKey({
@@ -77,7 +77,7 @@ export const AccountRelations = relations(Account, ({ one }) => ({
 }));
 
 export const Session = pgTable("session", {
-  sessionToken: varchar("sessionToken", { length: 255 }).notNull().primaryKey(),
+  sessionToken: text("sessionToken").notNull().primaryKey(),
   userId: uuid("userId")
     .notNull()
     .references(() => User.id, { onDelete: "cascade" }),

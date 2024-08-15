@@ -1,0 +1,36 @@
+{
+  "name": "@korino/anilist",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./apollo/*": "./.apollo/*",
+    "./queries": "./src/queries/index.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "graphql-codegen",
+    "dev": "graphql-codegen -w",
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@korino/eslint-config": "workspace:*",
+    "@korino/prettier-config": "workspace:*",
+    "@korino/tsconfig": "workspace:*",
+    "eslint": "^9.8.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.3.3",
+    "@graphql-typed-document-node/core": "^3.2.0"
+  },
+  "prettier": "@korino/prettier-config",
+  "dependencies": {
+    "graphql": "^16.9.0",
+    "@apollo/client": "^3.11.4"
+  }
+}

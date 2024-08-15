@@ -56,5 +56,7 @@ dist/
 **/target
 **/gen/schemas
 # Auto generated 
-apps/desktop/src/routeTree.gen.ts
+routeTree.gen.ts
 
+
+.apollo

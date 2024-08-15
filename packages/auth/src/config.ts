@@ -5,12 +5,12 @@ import type {
 } from "next-auth";
 import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import Discord from "next-auth/providers/discord";
 
 import { db } from "@korino/db/client";
 import { Account, Session, User } from "@korino/db/schema";
 
 import { env } from "../env";
+import AnilistProvider from "./AnilistProvider";
 
 declare module "next-auth" {
   interface Session {
@@ -21,6 +21,7 @@ declare module "next-auth" {
 }
 
 const adapter = DrizzleAdapter(db, {
+  // @ts-expect-error Anilist doesn't provide emails
   usersTable: User,
   accountsTable: Account,
   sessionsTable: Session,
@@ -38,7 +39,7 @@ export const authConfig = {
       }
     : {}),
   secret: env.AUTH_SECRET,
-  providers: [Discord],
+  providers: [AnilistProvider],
   callbacks: {
     session: (opts) => {
       if (!("user" in opts))
