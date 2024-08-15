@@ -12,7 +12,7 @@
     "generate-routes": "tsr generate",
     "tauri": "tauri",
     "clean": "rm -rf .turbo node_modules src-tauri/target src-tauri/gen",
-    "format": "prettier --check . --ignore-path ../../.gitignore && cargo fmt --check --manifest-path src-tauri/Cargo.toml",
+    "format": "cargo fmt --check --manifest-path src-tauri/Cargo.toml && prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint && cargo check --manifest-path src-tauri/Cargo.toml",
     "typecheck": "tsc --noEmit"
   },
