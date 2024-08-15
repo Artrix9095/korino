@@ -1,11 +1,12 @@
 import type { ConfigContext, ExpoConfig } from "expo/config";
+import { version } from "package.json";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "expo",
   slug: "expo",
   scheme: "expo",
-  version: "0.1.0",
+  version,
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "automatic",

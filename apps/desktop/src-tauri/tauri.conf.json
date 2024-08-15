@@ -1,6 +1,6 @@
 {
   "productName": "Korino",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "identifier": "dev.artrix.korino",
   "build": {
     "frontendDist": "../dist",
@@ -25,11 +25,20 @@
   "plugins": {
     "deep-link": {
       "mobile": [
-        { "host": "korino.artrix.dev", "pathPrefix": ["/login"] },
-        { "host": "korino.tv" }
+        {
+          "host": "korino.artrix.dev",
+          "pathPrefix": [
+            "/login"
+          ]
+        },
+        {
+          "host": "korino.tv"
+        }
       ],
       "desktop": {
-        "schemes": ["korino"]
+        "schemes": [
+          "korino"
+        ]
       }
     }
   },
@@ -39,7 +48,6 @@
     "shortDescription": "High quality anime torrenting and streaming",
     "longDescription": "High quality anime torrenting and streaming",
     "homepage": "https://korino.artrix.dev",
-
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

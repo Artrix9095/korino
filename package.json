@@ -24,6 +24,7 @@
     "ui-add": "turbo run ui-add"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.7",
     "@korino/prettier-config": "workspace:*",
     "@turbo/gen": "^2.0.13",
     "prettier": "^3.3.3",
