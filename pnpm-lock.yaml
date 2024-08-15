@@ -29,6 +29,9 @@ importers:
       '@auth/core':
         specifier: 0.32.0
         version: 0.32.0
+      '@korino/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
     devDependencies:
       '@korino/eslint-config':
         specifier: workspace:*
