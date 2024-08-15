@@ -8,6 +8,8 @@ import { TRPCReactProvider } from "~/trpc/react";
 
 import "../../node_modules/@korino/ui/styles/globals.css";
 
+import { ApolloProvider, client } from "@korino/anilist";
+
 import { env } from "~/env";
 
 export const metadata: Metadata = {
@@ -47,7 +49,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TRPCReactProvider>{props.children}</TRPCReactProvider>
+          <ApolloProvider client={client}>
+            <TRPCReactProvider>{props.children}</TRPCReactProvider>
+          </ApolloProvider>
           <div className="absolute bottom-4 right-4">
             <ThemeToggle />
           </div>

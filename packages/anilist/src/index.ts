@@ -19,4 +19,4 @@ const client = new ApolloClient<NormalizedCacheObject>({
 });
 
 export { client };
-export { useQuery as useAnilist } from "@apollo/client";
+export { useQuery as useAnilist, ApolloProvider } from "@apollo/client";

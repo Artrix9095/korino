@@ -75,6 +75,9 @@ importers:
       '@korino/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@kuyoonjo/tauri-plugin-udp':
+        specifier: ^0.1.1
+        version: 0.1.1
       '@tanstack/react-query':
         specifier: ^5.51.21
         version: 5.51.21(react@18.3.1)
@@ -293,6 +296,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@korino/anilist':
+        specifier: workspace:*
+        version: link:../../packages/anilist
       '@korino/api':
         specifier: workspace:*
         version: link:../../packages/api
@@ -2670,6 +2676,9 @@ packages:
   '@kamilkisiela/fast-url-parser@1.1.4':
     resolution: {integrity: sha512-gbkePEBupNydxCelHCESvFSFM8XPh1Zs/OAVRW/rKpEqPAl5PbOM90Si8mv9bvnR53uPD2s/FiRxdvSejpRJew==}
 
+  '@kuyoonjo/tauri-plugin-udp@0.1.1':
+    resolution: {integrity: sha512-nDZ3+aaTZOjK7zeo8SNv/VOsZ2XWOJj8QhmRyeLI1jQjCQD1nRjZ7NZy4K3O+T1L6dnfzwPbq8ogPrWbfZO/Sw==}
+
   '@mapbox/node-pre-gyp@1.0.11':
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
@@ -3837,6 +3846,10 @@ packages:
 
   '@tanstack/store@0.5.5':
     resolution: {integrity: sha512-EOSrgdDAJExbvRZEQ/Xhh9iZchXpMN+ga1Bnk8Nmygzs8TfiE6hbzThF+Pr2G19uHL6+DTDTHhJ8VQiOd7l4tA==}
+
+  '@tauri-apps/api@2.0.0-beta.12':
+    resolution: {integrity: sha512-77OvAnsExtiprnjQcvmDyZGfnIvMF/zVL5+8Vkl1R8o8E3iDtvEJZpbbH1F4dPtNa3gr4byp/5dm8hAa1+r3AA==}
+    engines: {node: '>= 18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
 
   '@tauri-apps/api@2.0.0-rc.0':
     resolution: {integrity: sha512-v454Qs3REHc3Za59U+/eSmBsdmF+3NE5+76+lFDaitVqN4ZglDHENDaMARYKGJVZuxiSkzyqG0SeG7lLQjVkPA==}
@@ -12257,6 +12270,11 @@ snapshots:
 
   '@kamilkisiela/fast-url-parser@1.1.4': {}
 
+  '@kuyoonjo/tauri-plugin-udp@0.1.1':
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.12
+      buffer: 6.0.3
+
   '@mapbox/node-pre-gyp@1.0.11':
     dependencies:
       detect-libc: 2.0.3
@@ -13564,6 +13582,8 @@ snapshots:
       - supports-color
 
   '@tanstack/store@0.5.5': {}
+
+  '@tauri-apps/api@2.0.0-beta.12': {}
 
   '@tauri-apps/api@2.0.0-rc.0': {}
 
