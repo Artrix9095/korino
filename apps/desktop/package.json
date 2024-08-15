@@ -13,7 +13,7 @@
     "tauri": "tauri",
     "clean": "rm -rf .turbo node_modules src-tauri/target src-tauri/gen",
     "format": "cargo fmt --check --manifest-path src-tauri/Cargo.toml && prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint && cargo check --manifest-path src-tauri/Cargo.toml",
+    "lint": "cargo check --manifest-path src-tauri/Cargo.toml && eslint",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
