@@ -20,8 +20,4 @@ export {
   validateToken,
   isSecureContext,
 } from "./config";
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 export { default as AnilistProvider } from "./AnilistProvider";
