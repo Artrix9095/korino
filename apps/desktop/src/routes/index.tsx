@@ -1,10 +1,25 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { invoke } from "@tauri-apps/api/core";
+import { listen } from "@tauri-apps/api/event";
 
 import { AuthShowcase } from "~/components/auth-showcase";
 import { CreatePostForm, PostCardSkeleton, PostList } from "~/components/posts";
 
 const Home = () => {
+  useEffect(() => {
+    void invoke("init_presence").then(() => {
+      return invoke("update_presence", {
+        status: { state: "Korino", details: "Test" },
+      }).then(() => {
+        console.log("updated presence");
+      });
+    });
+
+    void listen("rpc://ready", () => {
+      console.log("rpc ready");
+    });
+  }, []);
   return (
     <>
       <main className="container h-screen py-16">
