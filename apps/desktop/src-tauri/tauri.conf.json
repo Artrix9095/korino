@@ -1,7 +1,7 @@
 {
-  "productName": "t3-cross-platform",
+  "productName": "Korino",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "dev.artrix.korino",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:1420",
@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "T3 Cross platform",
+        "title": "Korino",
         "width": 800,
         "height": 600,
         "resizable": true,
@@ -25,8 +25,8 @@
   "plugins": {
     "deep-link": {
       "mobile": [
-        { "host": "korino.t3.com", "pathPrefix": ["/login"] },
-        { "host": "korino.com" }
+        { "host": "korino.artrix.dev", "pathPrefix": ["/login"] },
+        { "host": "korino.tv" }
       ],
       "desktop": {
         "schemes": ["korino"]
@@ -36,6 +36,10 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "shortDescription": "High quality anime torrenting and streaming",
+    "longDescription": "High quality anime torrenting and streaming",
+    "homepage": "https://korino.artrix.dev",
+
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

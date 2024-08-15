@@ -4,12 +4,11 @@ import { cn } from "@korino/ui";
 import { ThemeProvider, ThemeToggle } from "@korino/ui/theme";
 import { Toaster } from "@korino/ui/toast";
 
-import { TRPCReactProvider } from "~/trpc/react";
+
 
 import "../../node_modules/@korino/ui/styles/globals.css";
 
-import { ApolloProvider, client } from "@korino/anilist";
-
+import { APIProviders } from "~/components/Providers";
 import { env } from "~/env";
 
 export const metadata: Metadata = {
@@ -49,9 +48,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ApolloProvider client={client}>
-            <TRPCReactProvider>{props.children}</TRPCReactProvider>
-          </ApolloProvider>
+          <APIProviders>{props.children}</APIProviders>
           <div className="absolute bottom-4 right-4">
             <ThemeToggle />
           </div>

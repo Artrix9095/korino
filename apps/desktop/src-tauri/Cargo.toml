@@ -1,9 +1,9 @@
 [package]
 authors = ["you"]
-description = "A Tauri App"
+description = "High quality anime torrenting and streaming"
 edition = "2021"
 license = ""
-name = "app"
+name = "Korino"
 repository = ""
 rust-version = "1.70"
 version = "0.1.0"
