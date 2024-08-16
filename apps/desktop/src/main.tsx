@@ -12,7 +12,19 @@ import { ApolloProvider, client } from "@korino/anilist";
 import { ThemeProvider } from "@korino/ui/theme";
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  defaultPreload: "intent",
+  Wrap({ children }) {
+    return (
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ApolloProvider client={client}>
+          <TRPCProvider>{children}</TRPCProvider>
+        </ApolloProvider>
+      </ThemeProvider>
+    );
+  },
+});
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
@@ -31,13 +43,7 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <ApolloProvider client={client}>
-          <TRPCProvider>
-            <RouterProvider router={router} />
-          </TRPCProvider>
-        </ApolloProvider>
-      </ThemeProvider>
+      <RouterProvider router={router} />
     </StrictMode>,
   );
 }
