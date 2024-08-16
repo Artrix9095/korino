@@ -69,12 +69,18 @@ importers:
 
   apps/desktop:
     dependencies:
+      '@korino/anilist':
+        specifier: workspace:*
+        version: link:../../packages/anilist
       '@korino/api':
         specifier: workspace:*
         version: link:../../packages/api
       '@korino/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@korino/components':
+        specifier: workspace:*
+        version: link:../../packages/components
       '@korino/ui':
         specifier: workspace:*
         version: link:../../packages/ui

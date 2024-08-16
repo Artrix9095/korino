@@ -8,6 +8,7 @@ import { TRPCProvider } from "~/trpc";
 
 import "../node_modules/@korino/ui/styles/globals.css"; // Hack for now
 
+import { ApolloProvider, client } from "@korino/anilist";
 import { ThemeProvider } from "@korino/ui/theme";
 
 // Create a new router instance
@@ -26,13 +27,16 @@ const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Root not in body");
 
 if (!rootElement.innerHTML) {
+  console.log("Hi");
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <TRPCProvider>
-          <RouterProvider router={router} />
-        </TRPCProvider>
+        <ApolloProvider client={client}>
+          <TRPCProvider>
+            <RouterProvider router={router} />
+          </TRPCProvider>
+        </ApolloProvider>
       </ThemeProvider>
     </StrictMode>,
   );
