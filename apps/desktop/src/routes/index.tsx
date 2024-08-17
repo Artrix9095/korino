@@ -20,6 +20,12 @@ const Home = () => {
       console.log("rpc ready");
     });
   }, []);
+
+  void invoke("start_torrent", {
+    url: "https://nyaa.si/download/1860772.torrent",
+    server_port: 1337,
+  });
+  void listen("torrent://start", console.log);
   return (
     <>
       <main className="container h-screen py-16">

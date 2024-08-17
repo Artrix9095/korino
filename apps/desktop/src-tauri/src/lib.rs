@@ -2,16 +2,25 @@ use std::sync::Mutex;
 
 use tauri::{Emitter, Manager};
 mod rpc;
-use rpc::{init_presence, update_presence, DiscordRpc};
+use rpc::*;
+
+mod torrenting;
+use torrenting::commands::*;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // torrent::main();
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![init_presence, update_presence])
+        .invoke_handler(tauri::generate_handler![
+            init_presence,
+            update_presence,
+            start_torrent
+        ])
         .setup(|app| {
             app.manage(Mutex::new(Option::<DiscordRpc>::None));
             Ok(())
         })
+        .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_single_instance::init(|app, argv, _cwd| {
             let url = &argv[1];

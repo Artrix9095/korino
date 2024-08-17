@@ -5,5 +5,7 @@
     }
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "rust-analyzer.linkedProjects": ["apps/desktop/src-tauri/Cargo.toml"]
+  "rust-analyzer.linkedProjects": ["apps/desktop/src-tauri/Cargo.toml"],
+  "rust-analyzer.diagnostics.disabled": ["unlinked-file"],
+  "rust-analyzerfiles"
 }
