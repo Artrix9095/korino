@@ -1,3 +1,4 @@
+use super::peers::Peers;
 use rand::Rng;
 use serde::{Deserialize, Serialize};
 /// Note: the info hash field is _not_ included.
@@ -37,7 +38,13 @@ pub struct TrackerResponse {
     // /
     // / Each peer is represented using 6 bytes. The first 4 bytes are the peer's IP address and the
     // / last 2 bytes are the peer's port number.
-    // pub peers: Peers,
+    pub peers: Peers,
+}
+
+impl TrackerResponse {
+    pub fn parse(bytes: &[u8]) -> Result<TrackerResponse, String> {
+        serde_bencode::from_bytes(bytes).map_err(|err| err.to_string())
+    }
 }
 
 pub fn urlencode(t: &[u8; 20]) -> String {
