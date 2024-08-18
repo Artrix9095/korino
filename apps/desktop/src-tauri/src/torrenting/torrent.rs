@@ -122,16 +122,3 @@ fn render_torrent(torrent: &Torrent) {
         println!("piece:\t\t{}", hex::encode(piece));
     }
 }
-
-pub fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    // Open torrent file using args
-    let input = fs::read(&args[1]).expect("Failed to open torrent file");
-    // Print the torrent file
-    // println!("{}", input);
-
-    let torrent = de::from_bytes::<Torrent>(&input).expect("Invalid torrent");
-
-    render_torrent(&torrent);
-}

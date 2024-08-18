@@ -27,18 +27,14 @@
       "mobile": [
         {
           "host": "korino.artrix.dev",
-          "pathPrefix": [
-            "/login"
-          ]
+          "pathPrefix": ["/login"]
         },
         {
           "host": "korino.tv"
         }
       ],
       "desktop": {
-        "schemes": [
-          "korino"
-        ]
+        "schemes": ["korino"]
       }
     }
   },

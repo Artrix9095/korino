@@ -1,7 +1,7 @@
 use super::torrent::Torrent;
 use super::tracker::*;
 use serde::Serialize;
-use tauri::{Emitter, Manager};
+use tauri::Emitter;
 use tauri_plugin_http::reqwest;
 
 #[derive(Debug, Clone, Serialize)]
@@ -69,16 +69,16 @@ pub async fn start_torrent(
         .iter()
         .map(|peer| format!("{}:{}", peer.ip(), peer.port()))
         .collect::<Vec<String>>();
-    for peer_url in torrent.announce_list.unwrap().iter() {
-        app.emit(
-            "torrent://start",
-            TorrentStart {
-                tracker_response: tracker_response.clone(),
-                // torrent: torrent,
-                peer_urls: peer_urls.clone(),
-            },
-        )
-        .unwrap();
-    }
+
+    app.emit(
+        "torrent://start",
+        TorrentStart {
+            tracker_response: tracker_response.clone(),
+            // torrent: torrent,
+            peer_urls: peer_urls.clone(),
+        },
+    )
+    .unwrap();
+
     Ok(())
 }

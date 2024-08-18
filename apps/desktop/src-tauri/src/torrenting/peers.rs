@@ -63,4 +63,3 @@ impl Peers {
         serde_bencode::from_bytes(bytes).map_err(|err| err.to_string())
     }
 }
-

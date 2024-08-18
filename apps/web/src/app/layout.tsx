@@ -4,8 +4,6 @@ import { cn } from "@korino/ui";
 import { ThemeProvider, ThemeToggle } from "@korino/ui/theme";
 import { Toaster } from "@korino/ui/toast";
 
-
-
 import "../../node_modules/@korino/ui/styles/globals.css";
 
 import { APIProviders } from "~/components/Providers";
