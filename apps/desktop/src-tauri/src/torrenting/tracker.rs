@@ -1,6 +1,10 @@
-use super::peers::Peers;
-use rand::Rng;
+use super::torrent::Torrent;
+use anyhow::Context;
 use serde::{Deserialize, Serialize};
+use tauri_plugin_http::reqwest;
+
+pub use peers::Peers;
+
 /// Note: the info hash field is _not_ included.
 #[derive(Debug, Clone, Serialize)]
 pub struct TrackerRequest {
@@ -28,37 +32,125 @@ pub struct TrackerRequest {
     pub compact: u8,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct TrackerResponse {
     /// An integer, indicating how often your client should make a request to the tracker in seconds.
     ///
     /// You can ignore this value for the purposes of this challenge.
     pub interval: usize,
-    // / A string, which contains list of peers that your client can connect to.
-    // /
-    // / Each peer is represented using 6 bytes. The first 4 bytes are the peer's IP address and the
-    // / last 2 bytes are the peer's port number.
+
+    /// A string, which contains list of peers that your client can connect to.
+    ///
+    /// Each peer is represented using 6 bytes. The first 4 bytes are the peer's IP address and the
+    /// last 2 bytes are the peer's port number.
     pub peers: Peers,
+
+    #[serde(rename = "warning message")]
+    pub warning_message: Option<String>,
+
+    pub completed: Option<usize>,
+    pub incomplete: Option<usize>,
+    pub downloaded: Option<usize>,
+    #[serde(rename = "min interval")]
+    pub min_interval: Option<usize>,
 }
 
 impl TrackerResponse {
-    pub fn parse(bytes: &[u8]) -> Result<TrackerResponse, String> {
-        serde_bencode::from_bytes(bytes).map_err(|err| err.to_string())
+    pub async fn query(t: &Torrent, info_hash: [u8; 20]) -> anyhow::Result<Self> {
+        let request = TrackerRequest {
+            peer_id: String::from("OJZXJNJUzbKfpXZIidSC"),
+            port: 6881,
+            uploaded: 0,
+            downloaded: 0,
+            left: t.length(),
+            compact: 1,
+        };
+
+        let url_params =
+            serde_urlencoded::to_string(&request).context("url-encode tracker parameters")?;
+        let tracker_url = format!(
+            "{}?{}&info_hash={}",
+            t.announce.as_ref().unwrap(),
+            url_params,
+            &urlencode(&info_hash)
+        );
+        eprintln!("tracker url: {tracker_url}");
+        let response = reqwest::get(tracker_url).await.context("query tracker")?;
+        let response = response.bytes().await.context("fetch tracker response")?;
+        let tracker_info: TrackerResponse =
+            serde_bencode::from_bytes(&response).context("parse tracker response")?;
+        eprintln!("tracker info: {tracker_info:?}");
+        Ok(tracker_info)
     }
 }
 
-pub fn urlencode(t: &[u8; 20]) -> String {
+mod peers {
+    use serde::de::{self, Deserialize, Deserializer, Visitor};
+    use serde::ser::{Serialize, Serializer};
+    use std::fmt;
+    use std::net::{Ipv4Addr, SocketAddrV4};
+
+    #[derive(Debug, Clone)]
+    pub struct Peers(pub Vec<SocketAddrV4>);
+    struct PeersVisitor;
+
+    impl<'de> Visitor<'de> for PeersVisitor {
+        type Value = Peers;
+
+        fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+            formatter.write_str("6 bytes, the first 4 bytes are a peer's IP address and the last 2 are a peer's port number")
+        }
+
+        fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
+        where
+            E: de::Error,
+        {
+            if v.len() % 6 != 0 {
+                return Err(E::custom(format!("length is {}", v.len())));
+            }
+            // TODO: use array_chunks when stable; then we can also pattern-match in closure args
+            Ok(Peers(
+                v.chunks_exact(6)
+                    .map(|slice_6| {
+                        SocketAddrV4::new(
+                            Ipv4Addr::new(slice_6[0], slice_6[1], slice_6[2], slice_6[3]),
+                            u16::from_be_bytes([slice_6[4], slice_6[5]]),
+                        )
+                    })
+                    .collect(),
+            ))
+        }
+    }
+
+    impl<'de> Deserialize<'de> for Peers {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: Deserializer<'de>,
+        {
+            deserializer.deserialize_bytes(PeersVisitor)
+        }
+    }
+
+    impl Serialize for Peers {
+        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: Serializer,
+        {
+            let mut single_slice = Vec::with_capacity(6 * self.0.len());
+            for peer in &self.0 {
+                single_slice.extend(peer.ip().octets());
+                single_slice.extend(peer.port().to_be_bytes());
+            }
+            serializer.serialize_bytes(&single_slice)
+        }
+    }
+}
+
+fn urlencode(t: &[u8; 20]) -> String {
     let mut encoded = String::with_capacity(3 * t.len());
     for &byte in t {
         encoded.push('%');
         encoded.push_str(&hex::encode(&[byte]));
     }
     encoded
-}
-
-pub fn generate_peer_id() -> String {
-    let mut rng = rand::thread_rng();
-    (0..10)
-        .map(|_| format!("{:02x}", rng.gen::<u8>()))
-        .collect()
 }

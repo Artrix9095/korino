@@ -18,8 +18,13 @@ name = "app_lib"
 tauri-build = {version = "2.0.0-rc.0", features = [] }
 
 [dependencies]
+anyhow = "1.0.86"
+bytes = {version = "1.7.1", features = ["serde"] }
 discord-rpc-client = "0.4.0"
+futures-util = "0.3.30"
 hex = "0.4.3"
+http = "1.1.0"
+kanal = "0.1.0-pre8"
 rand = "0.8.5"
 serde = {version = "1.0", features = ["derive"] }
 serde_bencode = "0.2.4"
@@ -33,6 +38,9 @@ tauri-plugin-deep-link = "2.0.0-rc.0"
 tauri-plugin-http = "2.0.0-beta.0"
 tauri-plugin-shell = "2.0.0-rc.0"
 tauri-plugin-store = "2.0.0-rc.0"
+tokio = "1.39.3"
+tokio-util = "0.7.11"
+url = "2.5.2"
 
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-single-instance = "2.0.0-rc.0"
