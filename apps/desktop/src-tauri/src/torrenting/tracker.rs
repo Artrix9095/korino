@@ -74,12 +74,12 @@ impl TrackerResponse {
             url_params,
             &urlencode(&info_hash)
         );
-        eprintln!("tracker url: {tracker_url}");
+
         let response = reqwest::get(tracker_url).await.context("query tracker")?;
         let response = response.bytes().await.context("fetch tracker response")?;
         let tracker_info: TrackerResponse =
             serde_bencode::from_bytes(&response).context("parse tracker response")?;
-        eprintln!("tracker info: {tracker_info:?}");
+
         Ok(tracker_info)
     }
 }

@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
@@ -7,6 +7,7 @@ import { AuthShowcase } from "~/components/auth-showcase";
 import { CreatePostForm, PostCardSkeleton, PostList } from "~/components/posts";
 
 const Home = () => {
+  const [chunks, setChunks] = useState(new Uint8Array());
   useEffect(() => {
     void invoke("init_presence").then(() => {
       return invoke("update_presence", {
@@ -20,36 +21,31 @@ const Home = () => {
       console.log("rpc ready");
     });
     void invoke("start_torrent", {
-      url: "https://nyaa.land/download/1863544.torrent",
+      url: "https://nyaa.si/download/1863828.torrent",
       server_port: 1337,
     });
-    void listen("torrent://piece", console.log);
+    void listen<{ begin: number[]; block: number[]; index: number[] }>(
+      "torrent://piece",
+      async ({ payload }) => {
+        const { begin, block, index } = payload;
+        console.log("piece", begin, block, index);
+        setChunks(new Uint8Array([...chunks, ...block]));
+      },
+    );
   }, []);
 
   return (
     <>
       <main className="container h-screen py-16">
-        <div className="flex flex-col items-center justify-center gap-4">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-primary">T3</span> Turbo
-          </h1>
-          <AuthShowcase />
-
-          <CreatePostForm />
-          <div className="w-full max-w-2xl overflow-y-scroll">
-            <Suspense
-              fallback={
-                <div className="flex w-full flex-col gap-4">
-                  <PostCardSkeleton />
-                  <PostCardSkeleton />
-                  <PostCardSkeleton />
-                </div>
-              }
-            >
-              <PostList />
-            </Suspense>
-          </div>
-        </div>
+        {chunks.length !== 0 ? (
+          <video
+            id="vid"
+            controls
+            src={URL.createObjectURL(new Blob([chunks]))}
+          />
+        ) : (
+          "..."
+        )}
       </main>
     </>
   );

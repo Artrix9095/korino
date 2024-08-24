@@ -2,6 +2,7 @@ use super::BLOCK_MAX;
 use anyhow::Context;
 use bytes::{Buf, BufMut, BytesMut};
 use futures_util::{SinkExt, StreamExt};
+use serde::Serialize;
 use std::net::SocketAddrV4;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
@@ -323,6 +324,7 @@ impl Request {
 // NOTE: needs to be (and is)
 // #[repr(packed)]
 // but can't be marked as such because of the T: ?Sized part
+#[derive(Serialize, Clone, Debug, PartialEq, Eq)]
 pub struct Piece<T: ?Sized = [u8]> {
     index: [u8; 4],
     begin: [u8; 4],
