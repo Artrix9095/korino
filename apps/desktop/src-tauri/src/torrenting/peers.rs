@@ -21,11 +21,15 @@ pub struct Peer {
 }
 
 impl Peer {
-    pub async fn new(peer_addr: SocketAddrV4, info_hash: [u8; 20]) -> anyhow::Result<Self> {
+    pub async fn new(
+        peer_addr: SocketAddrV4,
+        info_hash: [u8; 20],
+        peer_id: &[u8; 20],
+    ) -> anyhow::Result<Self> {
         let mut peer = tokio::net::TcpStream::connect(peer_addr)
             .await
             .context("connect to peer")?;
-        let mut handshake = Handshake::new(info_hash, *b"OJZXJNJUzbKfpXZIidSC");
+        let mut handshake = Handshake::new(info_hash, *peer_id);
         {
             let handshake_bytes = handshake.as_bytes_mut();
             peer.write_all(handshake_bytes)

@@ -1,6 +1,7 @@
 use anyhow::Context;
 use bytes::Bytes;
 use hex;
+use rand::RngCore;
 use serde::{self, Deserialize, Serialize};
 use serde_bencode::de;
 use serde_bytes::ByteBuf;
@@ -168,4 +169,11 @@ fn render_torrent(torrent: &Torrent) {
     // for piece in torrent.info.piece_hashes() {
     //     println!("piece:\t\t{}", hex::encode(piece));
     // }
+}
+
+pub fn generate_peer_id() -> [u8; 20] {
+    let mut rng = rand::thread_rng();
+    let mut bytes = [0u8; 20];
+    rng.try_fill_bytes(&mut bytes).unwrap();
+    bytes
 }

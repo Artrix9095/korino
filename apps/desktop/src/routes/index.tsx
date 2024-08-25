@@ -29,6 +29,7 @@ const Home = () => {
       async ({ payload }) => {
         const { begin, block, index } = payload;
         console.log("piece", begin, block, index);
+        if (index.length !== 0) return;
         setChunks(new Uint8Array([...chunks, ...block]));
       },
     );
@@ -36,16 +37,12 @@ const Home = () => {
 
   return (
     <>
-      <main className="container h-screen py-16">
-        {chunks.length !== 0 ? (
-          <video
-            id="vid"
-            controls
-            src={URL.createObjectURL(new Blob([chunks]))}
-          />
-        ) : (
-          "..."
-        )}
+      <main>
+        <video
+          id="vid"
+          controls
+          // src={"data:video/mp4;base64," + btoa(String.fromCharCode(...chunks))}
+        />
       </main>
     </>
   );

@@ -1,3 +1,5 @@
+use std::f64::consts::E;
+
 use super::torrent::Torrent;
 use anyhow::Context;
 use serde::{Deserialize, Serialize};
@@ -11,7 +13,7 @@ pub struct TrackerRequest {
     /// A unique identifier for your client.
     ///
     /// A string of length 20 that you get to pick.
-    pub peer_id: String,
+    // pub peer_id: String,
 
     /// The port your client is listening on.
     pub port: u16,
@@ -47,7 +49,8 @@ pub struct TrackerResponse {
 
     #[serde(rename = "warning message")]
     pub warning_message: Option<String>,
-
+    #[serde(rename = "failure reason")]
+    pub failure_reason: Option<String>,
     pub completed: Option<usize>,
     pub incomplete: Option<usize>,
     pub downloaded: Option<usize>,
@@ -56,9 +59,12 @@ pub struct TrackerResponse {
 }
 
 impl TrackerResponse {
-    pub async fn query(t: &Torrent, info_hash: [u8; 20]) -> anyhow::Result<Self> {
+    pub async fn query(
+        t: &Torrent,
+        info_hash: [u8; 20],
+        peer_id: &[u8; 20],
+    ) -> anyhow::Result<Self> {
         let request = TrackerRequest {
-            peer_id: String::from("OJZXJNJUzbKfpXZIidSC"),
             port: 6881,
             uploaded: 0,
             downloaded: 0,
@@ -69,18 +75,29 @@ impl TrackerResponse {
         let url_params =
             serde_urlencoded::to_string(&request).context("url-encode tracker parameters")?;
         let tracker_url = format!(
-            "{}?{}&info_hash={}",
+            "{}?{}&info_hash={}&peer_id={}",
             t.announce.as_ref().unwrap(),
             url_params,
-            &urlencode(&info_hash)
+            &urlencode(&info_hash),
+            &urlencode(peer_id),
         );
-
+        eprintln!("tracker url: {tracker_url}");
         let response = reqwest::get(tracker_url).await.context("query tracker")?;
         let response = response.bytes().await.context("fetch tracker response")?;
         let tracker_info: TrackerResponse =
             serde_bencode::from_bytes(&response).context("parse tracker response")?;
-
-        Ok(tracker_info)
+        let tracker_error = if tracker_info.warning_message.is_some() {
+            &tracker_info.warning_message
+        } else if tracker_info.failure_reason.is_some() {
+            &tracker_info.failure_reason
+        } else {
+            &None
+        };
+        eprintln!("tracker error: {:?}", tracker_error);
+        match tracker_error {
+            Some(message) => Err(anyhow::Error::msg(format!("warning message: {}", message))),
+            None => Ok(tracker_info),
+        }
     }
 }
 

@@ -2,7 +2,7 @@ use crate::torrenting::BLOCK_MAX;
 
 use super::peers::{Handshake, Peer};
 use super::piece::*;
-use super::torrent::{self, Torrent};
+use super::torrent::{self, generate_peer_id, Torrent};
 use super::tracker::*;
 // use futures::StreamExt; // Make sure to add this import
 use futures_util::StreamExt;
@@ -28,13 +28,17 @@ pub async fn start_torrent(
 ) -> Result<(), String> {
     let t = Torrent::read(url).await.unwrap();
     let info_hash = t.info.hash();
-    let peer_info = TrackerResponse::query(&t, info_hash).await.unwrap();
+    let peer_id = generate_peer_id();
+
+    let peer_info = TrackerResponse::query(&t, info_hash, b"01234567890123456789")
+        .await
+        .unwrap();
 
     let mut peer_list = Vec::new();
 
     let mut peers = futures_util::stream::iter(peer_info.peers.0.into_iter())
         .map(|addr: SocketAddrV4| async move {
-            let peer = Peer::new(addr, info_hash).await;
+            let peer = Peer::new(addr, info_hash, &peer_id).await;
             (addr, peer)
         })
         .buffer_unordered(5 /* user config */);
