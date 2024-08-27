@@ -22,7 +22,9 @@
     "postinstall": "pnpm lint:ws",
     "typecheck": "turbo run typecheck",
     "ui-add": "turbo run ui-add",
-    "bump": "changeset version && node scripts/postversion.js"
+    "scripts:postversion": "node scripts/postversion.js",
+    "scripts:sidecars": "node scripts/sidecarBuild.js",
+    "bump": "changeset version && pnpm scripts:postversion"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.7",

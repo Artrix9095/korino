@@ -20,7 +20,6 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "serde_urlencoded",
- "sha1",
  "tauri",
  "tauri-build",
  "tauri-plugin-deep-link",

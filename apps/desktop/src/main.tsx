@@ -8,9 +8,39 @@ import { TRPCProvider } from "~/trpc";
 
 import "../node_modules/@korino/ui/styles/globals.css"; // Hack for now
 
+import { Command } from "@tauri-apps/plugin-shell";
+
 import { ApolloProvider, client } from "@korino/anilist";
 import { ThemeProvider } from "@korino/ui/theme";
 
+const rqbit = Command.sidecar("binaries/rqbit", [
+  "--http-api-listen-addr",
+  "127.0.0.1:9012",
+  "server",
+  "start",
+  "~/.rqbit/store",
+]);
+
+
+
+rqbit.on("close", () => {
+  console.log("rqbit closed");
+});
+rqbit.on("error", (err) => {
+  console.log(err);
+});
+rqbit.stdout.on("data", (data) => {
+  console.log("stdout", data.toString());
+});
+rqbit.stderr.on("data", (data) => {
+  console.log("stderr", data.toString());
+});
+
+
+
+void rqbit
+  .spawn()
+  .then((e) => console.log("rqbit started", e.stderr, e.stdout));
 // Create a new router instance
 const router = createRouter({
   routeTree,

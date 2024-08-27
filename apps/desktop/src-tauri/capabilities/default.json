@@ -19,7 +19,30 @@
     "deep-link:allow-unregister",
     "deep-link:default",
     "shell:default",
+    "shell:allow-spawn",
     "store:default",
-    "http:default"
+    "http:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "args": true,
+          "cmd": "",
+          "name": "binaries/rqbit",
+          "sidecar": true
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
+        {
+          "args": true,
+          "cmd": "",
+          "name": "binaries/rqbit",
+          "sidecar": true
+        }
+      ]
+    }
   ]
 }
