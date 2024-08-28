@@ -41,6 +41,20 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "linux": {
+      "appimage": {
+        "bundleMediaFramework": true,
+        "files": {}
+      },
+      "deb": {
+        "files": {}
+      },
+      "rpm": {
+        "epoch": 0,
+        "files": {},
+        "release": "1"
+      }
+    },
     "shortDescription": "High quality anime torrenting and streaming",
     "longDescription": "High quality anime torrenting and streaming",
     "homepage": "https://korino.artrix.dev",

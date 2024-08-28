@@ -1,13 +1,10 @@
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 
-import { AuthShowcase } from "~/components/auth-showcase";
-import { CreatePostForm, PostCardSkeleton, PostList } from "~/components/posts";
-
 const Home = () => {
-  const [chunks, setChunks] = useState(new Uint8Array());
+  const [video, setVideo] = useState("");
   useEffect(() => {
     void invoke("init_presence").then(() => {
       return invoke("update_presence", {
@@ -20,30 +17,21 @@ const Home = () => {
     void listen("rpc://ready", () => {
       console.log("rpc ready");
     });
-    void invoke("start_torrent", {
-      url: "https://nyaa.si/download/1863828.torrent",
-      server_port: 1337,
-    });
-    void listen<{ begin: number[]; block: number[]; index: number[] }>(
-      "torrent://piece",
-      async ({ payload }) => {
-        const { begin, block, index } = payload;
-        console.log("piece", begin, block, index);
-        if (index.length !== 0) return;
-        setChunks(new Uint8Array([...chunks, ...block]));
-      },
-    );
+    // void fetch("http://localhost:9012/torrents", {
+    //   body: "https://nyaa.si/download/1863828.torrent",
+    //   method: "POST",
+    // })
+    //   .then((r) => r.json())
+    //   .then(() => setVideo("http://localhost:9012/torrents/1/playlist"));
+
+    void fetch("http://localhost:9012/torrents/1/playlist")
+      .then((r) => r.text())
+      .then((t) => setVideo(t));
   }, []);
 
   return (
     <>
-      <main>
-        <video
-          id="vid"
-          controls
-          // src={"data:video/mp4;base64," + btoa(String.fromCharCode(...chunks))}
-        />
-      </main>
+      <main>{video && <video src={video} controls />}</main>
     </>
   );
 };

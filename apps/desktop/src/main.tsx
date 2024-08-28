@@ -31,7 +31,7 @@ rqbit.on("error", logger.error);
 rqbit.stdout.on("data", logger.info);
 rqbit.stderr.on("data", logger.error);
 
-void rqbit.spawn().then((e) => logger.info("Rqbit Initialized"));
+void rqbit.spawn().then(() => logger.info("Rqbit Initialized"));
 // Create a new router instance
 const router = createRouter({
   routeTree,
