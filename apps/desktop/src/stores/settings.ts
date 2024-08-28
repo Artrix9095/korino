@@ -8,34 +8,40 @@ export interface Settings {
   server: {
     port: number;
   };
+  discordRpc: boolean;
 }
-type Validator = (value: any) => boolean;
+type Validator<T> = (value: any) => T;
 export type SettingsInfo<T> = {
   [K in keyof T]: {
-    name: K;
-    description: string;
+    name: string;
+    description?: string;
     value?: T[K] extends Record<string, any> ? SettingsInfo<T[K]> : T[K];
     defaultValue?: T[K];
 
-    validator?: Validator;
+    validator?: Validator<T[K]>;
   };
 };
 
 const settingsInfo: SettingsInfo<Settings> = {
   theme: {
-    name: "theme",
+    name: "Theme",
     description: "Theme",
   },
+  discordRpc: {
+    name: "Discord Rich Presence",
+    description: "Discord RPC",
+    defaultValue: true,
+    validator: (v) => z.boolean().parse(v),
+  },
   server: {
-    name: "server",
+    name: "Server Settings",
     description: "Server settings",
     value: {
       port: {
         name: "port",
         description: "Port",
         defaultValue: 9012,
-        validator: (value: any) =>
-          z.number().min(0).max(65535).safeParse(value).success,
+        validator: (v) => z.number().min(0).max(65535).parse(v),
       },
     },
   },
@@ -46,9 +52,11 @@ export const defaultSettings = (): Settings => ({
   server: {
     port: settingsInfo.server.value?.port.defaultValue || 9012,
   },
+  discordRpc: true,
 });
 
-export const getSettings = () => settingsStore.get("settings");
+export const getSettings = () =>
+  settingsStore.get("settings") as Promise<Settings>;
 
 export const setSettings = (settings: Settings) =>
   settingsStore.set("settings", { ...defaultSettings(), ...settings });
