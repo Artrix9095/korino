@@ -22,8 +22,8 @@
     "@korino/api": "workspace:*",
     "@korino/auth": "workspace:*",
     "@korino/components": "workspace:*",
-    "@korino/ui": "workspace:*",
     "@korino/logger": "workspace:*",
+    "@korino/ui": "workspace:*",
     "@tanstack/react-query": "^5.51.21",
     "@tanstack/react-router": "^1.48.1",
     "@tanstack/router-devtools": "^1.48.1",
@@ -36,7 +36,8 @@
     "@trpc/server": "11.0.0-rc.449",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "superjson": "2.2.1"
+    "superjson": "2.2.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@korino/db": "workspace:*",
