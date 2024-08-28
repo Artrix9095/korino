@@ -17,7 +17,9 @@ const TanStackRouterDevtools =
 
 export const Route = createRootRoute({
   component: () => {
-    initRPC().then(() => console.log("Init RPC"));
+    initRPC()
+      .then(() => console.log("Init RPC"))
+      .catch(console.error);
     return (
       <>
         <Outlet />

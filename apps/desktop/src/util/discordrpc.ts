@@ -13,6 +13,7 @@ export const initRPC = async () => {
 };
 
 export const initRPCSync = (): Promise<boolean> =>
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises, no-async-promise-executor
   new Promise(async (res) => {
     const settings = await getSettings();
     if (settings.discordRpc) {
