@@ -23,6 +23,7 @@
     "@korino/auth": "workspace:*",
     "@korino/components": "workspace:*",
     "@korino/ui": "workspace:*",
+    "@korino/logger": "workspace:*",
     "@tanstack/react-query": "^5.51.21",
     "@tanstack/react-router": "^1.48.1",
     "@tanstack/router-devtools": "^1.48.1",

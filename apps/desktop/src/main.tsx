@@ -11,7 +11,10 @@ import "../node_modules/@korino/ui/styles/globals.css"; // Hack for now
 import { Command } from "@tauri-apps/plugin-shell";
 
 import { ApolloProvider, client } from "@korino/anilist";
+import { createChild } from "@korino/logger";
 import { ThemeProvider } from "@korino/ui/theme";
+
+const logger = createChild("rqbit");
 
 const rqbit = Command.sidecar("binaries/rqbit", [
   "--http-api-listen-addr",
@@ -21,26 +24,14 @@ const rqbit = Command.sidecar("binaries/rqbit", [
   "~/.rqbit/store",
 ]);
 
+rqbit.on("close", () => logger.warn("Closed"));
 
+rqbit.on("error", logger.error);
 
-rqbit.on("close", () => {
-  console.log("rqbit closed");
-});
-rqbit.on("error", (err) => {
-  console.log(err);
-});
-rqbit.stdout.on("data", (data) => {
-  console.log("stdout", data.toString());
-});
-rqbit.stderr.on("data", (data) => {
-  console.log("stderr", data.toString());
-});
+rqbit.stdout.on("data", logger.info);
+rqbit.stderr.on("data", logger.error);
 
-
-
-void rqbit
-  .spawn()
-  .then((e) => console.log("rqbit started", e.stderr, e.stdout));
+void rqbit.spawn().then((e) => logger.info("Rqbit Initialized"));
 // Create a new router instance
 const router = createRouter({
   routeTree,
@@ -69,7 +60,7 @@ const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Root not in body");
 
 if (!rootElement.innerHTML) {
-  console.log("Hi");
+  logger.info("Hi");
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
