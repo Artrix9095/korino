@@ -45,6 +45,7 @@
     "@korino/prettier-config": "workspace:*",
     "@korino/tailwind-config": "workspace:*",
     "@korino/tsconfig": "workspace:*",
+    "@tanstack/react-query-devtools": "^5.52.2",
     "@tanstack/router-cli": "^1.47.0",
     "@tanstack/router-plugin": "^1.47.0",
     "@tauri-apps/cli": "2.0.0-rc.1",

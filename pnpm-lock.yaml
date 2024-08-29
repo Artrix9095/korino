@@ -145,6 +145,9 @@ importers:
       '@korino/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
+      '@tanstack/react-query-devtools':
+        specifier: ^5.52.2
+        version: 5.52.2(@tanstack/react-query@5.51.21(react@18.3.1))(react@18.3.1)
       '@tanstack/router-cli':
         specifier: ^1.47.0
         version: 1.47.0
@@ -3902,6 +3905,15 @@ packages:
 
   '@tanstack/query-core@5.51.21':
     resolution: {integrity: sha512-POQxm42IUp6n89kKWF4IZi18v3fxQWFRolvBA6phNVmA8psdfB1MvDnGacCJdS+EOX12w/CyHM62z//rHmYmvw==}
+
+  '@tanstack/query-devtools@5.51.16':
+    resolution: {integrity: sha512-ajwuq4WnkNCMj/Hy3KR8d3RtZ6PSKc1dD2vs2T408MdjgKzQ3klVoL6zDgVO7X+5jlb5zfgcO3thh4ojPhfIaw==}
+
+  '@tanstack/react-query-devtools@5.52.2':
+    resolution: {integrity: sha512-QI3jsi8sVA805F9NRdL/sVGgCUzVD8lr6/ts9v3ZtECG864YDW3GJwEWH030U+4aPvxMtxaJz7ctbtE7Wkxh1g==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.52.2
+      react: ^18 || ^19
 
   '@tanstack/react-query@5.51.21':
     resolution: {integrity: sha512-Q/V81x3sAYgCsxjwOkfLXfrmoG+FmDhLeHH5okC/Bp8Aaw2c33lbEo/mMcMnkxUPVtB2FLpzHT0tq3c+OlZEbw==}
@@ -13956,6 +13968,14 @@ snapshots:
   '@tanstack/history@1.45.3': {}
 
   '@tanstack/query-core@5.51.21': {}
+
+  '@tanstack/query-devtools@5.51.16': {}
+
+  '@tanstack/react-query-devtools@5.52.2(@tanstack/react-query@5.51.21(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-devtools': 5.51.16
+      '@tanstack/react-query': 5.51.21(react@18.3.1)
+      react: 18.3.1
 
   '@tanstack/react-query@5.51.21(react@18.3.1)':
     dependencies:

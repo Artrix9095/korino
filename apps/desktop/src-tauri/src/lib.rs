@@ -3,7 +3,6 @@ use std::sync::Mutex;
 use tauri::{Emitter, Manager};
 mod rpc;
 use rpc::*;
-use tauri_plugin_shell::ShellExt;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

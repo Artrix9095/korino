@@ -1,30 +1,36 @@
-import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { invoke } from "@tauri-apps/api/core";
-import { listen } from "@tauri-apps/api/event";
 
-const Home = () => {
-  const [video, setVideo] = useState("");
-  useEffect(() => {
-    // void fetch("http://localhost:9012/torrents", {
-    //   body: "https://nyaa.si/download/1863828.torrent",
-    //   method: "POST",
-    // })
-    //   .then((r) => r.json())
-    //   .then(() => setVideo("http://localhost:9012/torrents/1/playlist"));
+import { usePaths, useSettings } from "~/hooks/tauri";
+import {
+  useMutateTorrent,
+  useTorrentPlaylist,
+  useTorrentStart,
+} from "~/hooks/torrent";
 
-    void fetch("http://localhost:9012/torrents/1/playlist")
-      .then((r) => r.text())
-      .then((t) => setVideo(t));
-  }, []);
+const TORRENT_URL = "https://nyaa.si/download/1865232.torrent";
 
+const TorrentPlayer = () => {
+  const { data: settings } = useSettings();
+  const { data: paths } = usePaths();
+  const hostname = settings?.server.hostname;
+  const downloadPath = settings?.server.downloadPath || paths?.appCacheDir;
+
+  const { isSuccess } = useTorrentStart(hostname, downloadPath);
+  console.log(hostname, downloadPath);
+  const { data: torrent } = useMutateTorrent(TORRENT_URL, hostname, isSuccess);
+  const torrentId = String(torrent?.id);
+
+  const { data: videoUrl } = useTorrentPlaylist(
+    torrent !== undefined ? torrentId : undefined,
+    hostname,
+  );
   return (
     <>
-      <main>{video && <video src={video} controls />}</main>
+      <main>{videoUrl && <video src={videoUrl} controls />}</main>
     </>
   );
 };
 
 export const Route = createFileRoute("/")({
-  component: () => <Home />,
+  component: () => <TorrentPlayer />,
 });

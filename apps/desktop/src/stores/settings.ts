@@ -55,22 +55,53 @@ const settingsInfo: SettingsInfo<Settings> = {
   },
 };
 
-export const defaultSettings = async () =>
+/**
+ * Returns the default settings for the app, overriding the download path if
+ * given.
+ *
+ * @param {string} [downloadPath] - The download path to use instead of the
+ * default.
+ * @returns {Settings} - The default settings, with the given download path.
+ */
+export const defaultSettings = (downloadPath?: string) =>
   ({
     theme: "dark",
     server: {
       hostname: settingsInfo.server.value!.hostname.defaultValue!,
-      downloadPath: await join(await appCacheDir(), "torrents"), // WARNING: this is probably super slow
+      downloadPath: downloadPath ?? "", // WARNING: this is probably super slow
     },
 
     discordRpc: true,
   }) as Settings;
 
-export const getSettings = () =>
-  settingsStore.get("settings") as Promise<Settings>;
+/**
+ * Fetches the current settings from storage. If no settings are found,
+ * it will initialize the settings with the default values and store
+ * them in storage.
+ *
+ * @returns The current settings.
+ */
+export const getSettings = async () => {
+  let settings: Settings | null = await settingsStore.get("settings");
+  // Happens on first run
+  if (!settings) {
+    settings = defaultSettings();
+    await setSettings(settings, false);
+  }
 
-export const setSettings = async (settings: Settings) =>
+  return settings;
+};
+
+/**
+ * Sets the settings. If `fetchOld` is true, it will first fetch the current settings
+ * and merge them with the provided settings. If `fetchOld` is false, it will simply
+ * overwrite the current settings with the provided ones.
+ * @param settings The settings to set.
+ * @param fetchOld Whether to fetch the current settings or not. Defaults to true.
+ */
+export const setSettings = async (settings: Settings, fetchOld = true) =>
   await settingsStore.set("settings", {
-    ...(await defaultSettings()),
+    // Prevents recursion
+    ...(fetchOld ? await getSettings() : {}),
     ...settings,
   });
