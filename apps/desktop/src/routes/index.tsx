@@ -7,7 +7,7 @@ import {
   useTorrentStart,
 } from "~/hooks/torrent";
 
-const TORRENT_URL = "https://nyaa.si/download/1865232.torrent";
+const TORRENT_URL = "https://nyaa.si/download/1865425.torrent";
 
 const TorrentPlayer = () => {
   const { data: settings } = useSettings();
