@@ -1,16 +1,24 @@
 use std::sync::Mutex;
-
 use tauri::{Emitter, Manager};
 mod rpc;
 use rpc::*;
+mod rqbit;
+use rqbit::*;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     // torrent::main();
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![init_presence, update_presence,])
+        .invoke_handler(tauri::generate_handler![
+            init_presence,
+            update_presence,
+            start_rqbit
+        ])
         .setup(|app| {
+            // Generate states
             app.manage(Mutex::new(Option::<DiscordRpc>::None));
+            app.manage(Mutex::new(Option::<RqbitProcess>::None));
+
             Ok(())
         })
         .plugin(tauri_plugin_http::init())

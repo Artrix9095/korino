@@ -1,6 +1,6 @@
-use std::sync::Mutex;
 
 use discord_rpc_client::Client;
+use std::sync::Mutex;
 use tauri::{Emitter, State};
 
 pub struct DiscordRpc(Client);
