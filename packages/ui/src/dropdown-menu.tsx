@@ -5,8 +5,8 @@ import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import {
   CheckIcon,
   ChevronRightIcon,
-  DotFilledIcon,
-} from "@radix-ui/react-icons";
+  Dot as DotFilledIcon,
+} from "lucide-react";
 
 import { cn } from "@korino/ui";
 
@@ -16,6 +16,24 @@ const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
 const DropdownMenuSub = DropdownMenuPrimitive.Sub;
 const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
+
+export type DropdownMenuMenuRadioItemProps =
+  DropdownMenuPrimitive.DropdownMenuRadioItemProps;
+export type DropdownMenuTriggerProps =
+  DropdownMenuPrimitive.DropdownMenuTriggerProps;
+export type DropdownMenuGroupProps =
+  DropdownMenuPrimitive.DropdownMenuGroupProps;
+export type DropdownMenuPortalProps =
+  DropdownMenuPrimitive.DropdownMenuPortalProps;
+export type DropdownMenuSubProps = DropdownMenuPrimitive.DropdownMenuSubProps;
+export type DropdownMenuSubTriggerProps =
+  DropdownMenuPrimitive.DropdownMenuSubTriggerProps;
+export type DropdownMenuSubContentProps =
+  DropdownMenuPrimitive.DropdownMenuSubContentProps;
+export type DropdownMenuRadioGroupProps =
+  DropdownMenuPrimitive.DropdownMenuRadioGroupProps;
+export type DropdownMenuMenuContentProps =
+  DropdownMenuPrimitive.DropdownMenuContentProps;
 
 const DropdownMenuSubTrigger = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,

@@ -1,5 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import "@vidstack/react/player/styles/base.css";
+
+import { DefaultPlayer, VideoLayout } from "@korino/media-player";
+
 import { usePaths, useSettings } from "~/hooks/tauri";
 import {
   useMutateTorrent,
@@ -7,7 +11,7 @@ import {
   useTorrentStart,
 } from "~/hooks/torrent";
 
-const TORRENT_URL = "https://nyaa.si/download/1865425.torrent";
+const TORRENT_URL = "https://nyaa.si/download/1866381.torrent";
 
 const TorrentPlayer = () => {
   const { data: settings } = useSettings();
@@ -18,15 +22,28 @@ const TorrentPlayer = () => {
   const { isSuccess } = useTorrentStart(hostname, downloadPath);
   console.log(hostname, downloadPath);
   const { data: torrent } = useMutateTorrent(TORRENT_URL, hostname, isSuccess);
-  const torrentId = String(torrent?.id);
+  const torrentId: number | null = torrent?.id ?? null;
 
-  const { data: videoUrl } = useTorrentPlaylist(
-    torrent !== undefined ? torrentId : undefined,
+  const { data: playlist } = useTorrentPlaylist(
+    torrentId ? torrentId.toString() : undefined,
     hostname,
   );
+
   return (
     <>
-      <main>{videoUrl && <video src={videoUrl} controls />}</main>
+      <main>
+        {playlist && (
+          <DefaultPlayer
+            src={playlist.map((url) => ({
+              src: url,
+              type: "video/mpeg",
+            }))}
+            controls
+          >
+            <VideoLayout />
+          </DefaultPlayer>
+        )}
+      </main>
     </>
   );
 };

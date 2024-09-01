@@ -66,6 +66,7 @@ export const useTorrentStart = (hostname?: string, downloadPath?: string) =>
       }
 
       const rqbit = Command.sidecar("binaries/rqbit", [
+        "-v error",
         "--http-api-listen-addr",
         `${hostname}`,
         "server",
@@ -73,12 +74,12 @@ export const useTorrentStart = (hostname?: string, downloadPath?: string) =>
         `${downloadPath}`,
       ]);
 
-      rqbit.on("close", () => logger.warn("Closed"));
+      // rqbit.on("close", () => logger.warn("Closed"));
 
-      rqbit.on("error", logger.error);
+      // rqbit.on("error", logger.error);
 
-      rqbit.stdout.on("data", logger.info);
-      rqbit.stderr.on("data", logger.error);
+      // rqbit.stdout.on("data", logger.info);
+      // rqbit.stderr.on("data", logger.error);
       logger.info("Starting Rqbit...");
       return [
         await rqbit.spawn().then((r) => {
@@ -95,5 +96,12 @@ export const useTorrentPlaylist = (id?: string, hostname?: string) =>
     queryKey: ["stream", id],
     enabled: !!hostname && !!id,
     queryFn: () =>
-      fetch(`http://${hostname}/torrents/${id}/playlist`).then((r) => r.text()),
+      fetch(`http://${hostname}/torrents/${id}/playlist`)
+        .then((r) => r.text())
+        .then((t) =>
+          t
+            .replace("#EXTM3U\n", "")
+            .split("\n")
+            .filter((l) => l.startsWith("http")),
+        ),
   });

@@ -24,6 +24,7 @@
     "@korino/components": "workspace:*",
     "@korino/logger": "workspace:*",
     "@korino/ui": "workspace:*",
+    "@korino/media-player": "workspace:*",
     "@tanstack/react-query": "^5.51.21",
     "@tanstack/react-router": "^1.48.1",
     "@tanstack/router-devtools": "^1.48.1",
