@@ -21,6 +21,7 @@ export type PlayerProps = MediaPlayerProps & {
 };
 function Player({
   children: layout,
+  controls = true,
   poster,
   tracks = [],
   ...props
@@ -47,17 +48,12 @@ function Player({
     >
       <MediaProvider>
         {poster}
-        {/* <Poster
-          className="absolute inset-0 block h-full w-full rounded-md object-cover opacity-0 transition-opacity data-[visible]:opacity-100"
-          src="https://files.vidstack.io/sprite-fight/poster.webp"
-          alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
-        /> */}
         {tracks.map((track) => (
           <Track {...track} key={track.src} />
         ))}
       </MediaProvider>
 
-      {layout}
+      {controls && layout}
     </MediaPlayer>
   );
 }

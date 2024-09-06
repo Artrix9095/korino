@@ -46,26 +46,22 @@ const TorrentPlayer = () => {
       ).then((r) => r.json()),
     staleTime: Infinity,
   });
-  console.log(playlist);
   return (
     <>
       <main>
         {playlist ? (
           <DefaultPlayer
-            src={{
-              src: playlist[0].media[0]?.src,
-              type: playlist[0].media[0]?.mimetype,
-            }}
-            // controls
+          
+            src={playlist.flatMap((p) =>
+              p.media.map((m) => ({
+                src: m.src,
+                type: "video/webm",
+              })),
+            )}
           >
             <VideoLayout />
           </DefaultPlayer>
         ) : null}
-        {/* {playlist?.media && ( */}
-        {/* // <DefaultPlayer src={playlist.media[0]?.src} controls>
-          //   <VideoLayout />
-          // </DefaultPlayer> */}
-        {/* )} */}
       </main>
     </>
   );

@@ -8,6 +8,7 @@ import {
   useMediaState,
 } from "@vidstack/react";
 
+import { Button } from "@korino/ui/button";
 import {
   Minimize as FullscreenExitIcon,
   Maximize as FullscreenIcon,
@@ -34,12 +35,6 @@ const Tooltip = ({ children }: { children: React.ReactNode }) => (
   </TooltipProvider>
 );
 
-export const buttonClass =
-  "group ring-media-focus relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 focus-visible:ring-4 aria-disabled:hidden";
-
-export const tooltipClass =
-  "animate-out fade-out slide-out-to-bottom-2 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in data-[state=delayed-open]:slide-in-from-bottom-4 z-10 rounded-sm bg-black/90 px-2 py-0.5 text-sm font-medium text-white parent-data-[open]:hidden";
-
 export interface MediaButtonProps {
   tooltipSide?: TooltipContentProps["side"];
   tooltipAlign?: TooltipContentProps["align"];
@@ -55,16 +50,17 @@ export function Play({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <PlayButton className={buttonClass}>
-          {isPaused ? (
-            <PlayIcon className="h-7 w-7 translate-x-px" />
-          ) : (
-            <PauseIcon className="h-7 w-7" />
-          )}
-        </PlayButton>
+        <Button asChild variant="invisible">
+          <PlayButton>
+            {isPaused ? (
+              <PlayIcon className="h-7 w-7 translate-x-px" />
+            ) : (
+              <PauseIcon className="h-7 w-7" />
+            )}
+          </PlayButton>
+        </Button>
       </TooltipTrigger>
       <TooltipContent
-        className={tooltipClass}
         side={tooltipSide}
         align={tooltipAlign}
         sideOffset={tooltipOffset}
@@ -85,18 +81,19 @@ export function Mute({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <MuteButton className={buttonClass}>
-          {isMuted || volume == 0 ? (
-            <MuteIcon className="h-7 w-7" />
-          ) : volume < 0.5 ? (
-            <VolumeLowIcon className="h-7 w-7" />
-          ) : (
-            <VolumeHighIcon className="h-7 w-7" />
-          )}
-        </MuteButton>
+        <Button asChild variant="invisible">
+          <MuteButton>
+            {isMuted || volume == 0 ? (
+              <MuteIcon className="h-7 w-7" />
+            ) : volume < 0.5 ? (
+              <VolumeLowIcon className="h-7 w-7" />
+            ) : (
+              <VolumeHighIcon className="h-7 w-7" />
+            )}
+          </MuteButton>
+        </Button>
       </TooltipTrigger>
       <TooltipContent
-        className={tooltipClass}
         side={tooltipSide}
         align={tooltipAlign}
         sideOffset={tooltipOffset}
@@ -117,14 +114,15 @@ export function Caption({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <CaptionButton className={buttonClass}>
-          <SubtitlesIcon
-            className={`h-7 w-7 ${!isOn ? "text-white/60" : ""}`}
-          />
-        </CaptionButton>
+        <Button asChild variant="invisible">
+          <CaptionButton>
+            <SubtitlesIcon
+              className={`h-7 w-7 ${!isOn ? "text-white/60" : ""}`}
+            />
+          </CaptionButton>
+        </Button>
       </TooltipTrigger>
       <TooltipContent
-        className={tooltipClass}
         side={tooltipSide}
         align={tooltipAlign}
         sideOffset={tooltipOffset}
@@ -144,16 +142,17 @@ export function PIP({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <PIPButton className={buttonClass}>
-          {isActive ? (
-            <PictureInPictureExitIcon className="h-7 w-7" />
-          ) : (
-            <PictureInPictureIcon className="h-7 w-7" />
-          )}
-        </PIPButton>
+        <Button asChild variant="invisible">
+          <PIPButton>
+            {isActive ? (
+              <PictureInPictureExitIcon className="h-7 w-7" />
+            ) : (
+              <PictureInPictureIcon className="h-7 w-7" />
+            )}
+          </PIPButton>
+        </Button>
       </TooltipTrigger>
       <TooltipContent
-        className={tooltipClass}
         side={tooltipSide}
         align={tooltipAlign}
         sideOffset={tooltipOffset}
@@ -173,16 +172,17 @@ export function Fullscreen({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <FullscreenButton className={buttonClass}>
-          {isActive ? (
-            <FullscreenExitIcon className="h-7 w-7" />
-          ) : (
-            <FullscreenIcon className="h-7 w-7" />
-          )}
-        </FullscreenButton>
+        <Button asChild variant="invisible">
+          <FullscreenButton>
+            {isActive ? (
+              <FullscreenExitIcon className="h-7 w-7" />
+            ) : (
+              <FullscreenIcon className="h-7 w-7" />
+            )}
+          </FullscreenButton>
+        </Button>
       </TooltipTrigger>
       <TooltipContent
-        className={tooltipClass}
         side={tooltipSide}
         align={tooltipAlign}
         sideOffset={tooltipOffset}

@@ -23,7 +23,7 @@
   },
   "prettier": "@korino/prettier-config",
   "dependencies": {
-    "framer-motion": "^11.3.27",
-    "@korino/ui": "workspace:*"
+    "@korino/ui": "workspace:*",
+    "framer-motion": "^11.3.27"
   }
 }

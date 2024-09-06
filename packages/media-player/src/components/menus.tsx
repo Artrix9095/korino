@@ -1,6 +1,7 @@
 import { useCaptionOptions, useMediaPlayer } from "@vidstack/react";
 import { CheckCircle, CircleIcon, SubtitlesIcon } from "lucide-react";
 
+import { Button } from "@korino/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,8 +20,6 @@ import {
   TooltipTrigger,
 } from "@korino/ui/tooltip";
 
-import { buttonClass, tooltipClass } from "./buttons";
-
 export interface MenuProps {
   side?: DropdownMenuMenuContentProps["side"];
   align?: DropdownMenuMenuContentProps["align"];
@@ -35,10 +34,6 @@ const Tooltip = ({ children }: { children: React.ReactNode }) => (
     <TooltipPrimitive>{children}</TooltipPrimitive>
   </TooltipProvider>
 );
-
-// We can reuse this class for other menus.
-const menuClass =
-  "animate-out fade-out z-[9999] slide-in-from-bottom-4 data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:slide-out-to-bottom-2 flex max-h-[400px] min-w-[260px] flex-col rounded-md border border-white/10 bg-black/95 p-2.5 font-sans text-[15px] font-medium outline-none backdrop-blur-sm duration-300";
 
 export function Captions({
   side = "top",
@@ -57,14 +52,15 @@ export function Captions({
         <TooltipTrigger asChild>
           <DropdownMenuTrigger
             aria-label="Settings"
-            className={buttonClass}
+            asChild
             disabled={options.disabled}
           >
-            <SubtitlesIcon className="h-7 w-7" />
+            <Button variant={"invisible"}>
+              <SubtitlesIcon className="h-7 w-7" />
+            </Button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
         <TooltipContent
-          className={tooltipClass}
           side={tooltipSide}
           align={tooltipAlign}
           sideOffset={tooltipOffset}
@@ -73,7 +69,6 @@ export function Captions({
         </TooltipContent>
       </Tooltip>
       <DropdownMenuContent
-        className={menuClass}
         side={side}
         align={align}
         sideOffset={offset}

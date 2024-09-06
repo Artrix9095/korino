@@ -14,11 +14,11 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
+    "@korino/anilist": "workspace:*",
     "@korino/api": "workspace:*",
     "@korino/auth": "workspace:*",
     "@korino/db": "workspace:*",
     "@korino/ui": "workspace:*",
-    "@korino/anilist": "workspace:*",
     "@korino/validators": "workspace:*",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@tanstack/react-query": "^5.51.21",
