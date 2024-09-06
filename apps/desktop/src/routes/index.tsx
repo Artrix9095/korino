@@ -3,7 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import "@vidstack/react/player/styles/base.css";
 
 import { useEffect } from "react";
-import { invoke } from "@tauri-apps/api/core";
+import { useQuery } from "@tanstack/react-query";
+import { convertFileSrc, invoke } from "@tauri-apps/api/core";
 
 import { DefaultPlayer, VideoLayout } from "@korino/media-player";
 
@@ -11,37 +12,60 @@ import { usePaths, useSettings } from "~/hooks/tauri";
 import {
   useMutateTorrent,
   useTorrentPlaylist,
+  useTorrentServer,
   useTorrentStart,
 } from "~/hooks/torrent";
 
-const TORRENT_URL = "https://nyaa.si/download/1866381.torrent";
+interface TorrentMedia {
+  src: string;
+  mimetype: string;
+}
+
+interface TorrentPlaylist {
+  media: TorrentMedia[];
+  title: string;
+  description?: string;
+}
+
+const TORRENT_URL = "https://nyaa.si/download/1869762.torrent";
 
 const TorrentPlayer = () => {
   const { data: settings } = useSettings();
-  useEffect(() => {
-    if (settings) {
-      invoke("start_rqbit", {
-        host: settings.server.hostname,
-        out_dir: settings.server.downloadPath,
-      });
-      console.log("started", settings);
-    }
-  }, [settings]);
+  const { isSuccess: serverOn } = useTorrentServer(
+    settings?.server.hostname,
+    settings?.server.downloadPath,
+  );
 
+  const { data: playlist } = useQuery<TorrentPlaylist[]>({
+    queryKey: ["playlist", TORRENT_URL],
+    enabled: serverOn && !!settings,
+
+    queryFn: () =>
+      fetch(
+        `korino://localhost/torrent?host=${settings?.server.hostname}&torrent=${TORRENT_URL}`,
+      ).then((r) => r.json()),
+    staleTime: Infinity,
+  });
+  console.log(playlist);
   return (
     <>
       <main>
-        {/* {playlist && (
+        {playlist ? (
           <DefaultPlayer
-            src={playlist.map((url) => ({
-              src: url,
-              type: "video/mpeg",
-            }))}
-            controls
+            src={{
+              src: playlist[0].media[0]?.src,
+              type: playlist[0].media[0]?.mimetype,
+            }}
+            // controls
           >
             <VideoLayout />
           </DefaultPlayer>
-        )} */}
+        ) : null}
+        {/* {playlist?.media && ( */}
+        {/* // <DefaultPlayer src={playlist.media[0]?.src} controls>
+          //   <VideoLayout />
+          // </DefaultPlayer> */}
+        {/* )} */}
       </main>
     </>
   );

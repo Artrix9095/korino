@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { invoke } from "@tauri-apps/api/core";
 import { Command } from "@tauri-apps/plugin-shell";
 
 import { createChild } from "@korino/logger";
@@ -52,43 +53,20 @@ export const serverCheck = (hostname?: string) =>
     .then((r) => r.status === 200)
     .catch(() => false);
 
-export const useTorrentStart = (hostname?: string, downloadPath?: string) =>
+export const useTorrentServer = (hostname?: string, downloadPath?: string) =>
   useQuery({
-    queryKey: ["torrent-start"],
-    enabled: !!hostname && !!downloadPath,
-    queryFn: async (): Promise<
-      // We love typescript
-      [Awaited<ReturnType<Command<string>["spawn"]>> | null, string]
-    > => {
-      if (hostname && (await serverCheck(hostname))) {
-        logger.warn("Rqbit already running");
-        return [null, hostname];
-      }
-
-      const rqbit = Command.sidecar("binaries/rqbit", [
-        "-v error",
-        "--http-api-listen-addr",
-        `${hostname}`,
-        "server",
-        "start",
-        `${downloadPath}`,
-      ]);
-
-      // rqbit.on("close", () => logger.warn("Closed"));
-
-      // rqbit.on("error", logger.error);
-
-      // rqbit.stdout.on("data", logger.info);
-      // rqbit.stderr.on("data", logger.error);
-      logger.info("Starting Rqbit...");
-      return [
-        await rqbit.spawn().then((r) => {
-          logger.info("Rqbit Initialized");
-          return r;
-        }),
-        `${hostname}`,
-      ];
-    },
+    queryKey: ["server-start"],
+    enabled: !!hostname,
+    staleTime: Infinity,
+    /**
+     *
+     * @returns {Promise<boolean>} true if server started, false if the server was already running
+     */
+    queryFn: (): Promise<boolean> =>
+      invoke("start_rqbit", {
+        host: hostname,
+        out_dir: downloadPath,
+      }),
   });
 
 export const useTorrentPlaylist = (id?: string, hostname?: string) =>

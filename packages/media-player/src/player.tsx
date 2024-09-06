@@ -1,4 +1,3 @@
-
 import type {
   MediaCanPlayDetail,
   MediaCanPlayEvent,
@@ -6,6 +5,7 @@ import type {
   MediaProviderAdapter,
   MediaProviderChangeEvent,
 } from "@vidstack/react";
+import React from "react";
 import {
   isHLSProvider,
   MediaPlayer,
@@ -19,7 +19,7 @@ export type PlayerProps = MediaPlayerProps & {
   tracks?: TrackProps[];
   poster?: JSX.Element;
 };
-export function DefaultPlayer({
+function Player({
   children: layout,
   poster,
   tracks = [],
@@ -61,3 +61,5 @@ export function DefaultPlayer({
     </MediaPlayer>
   );
 }
+
+export const DefaultPlayer = React.memo(Player);

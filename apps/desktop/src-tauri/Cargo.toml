@@ -3,7 +3,7 @@ authors = ["you"]
 description = "High quality anime torrenting and streaming"
 edition = "2021"
 license = ""
-name = "Korino"
+name = "korino"
 repository = ""
 rust-version = "1.70"
 version = "0.0.0"
@@ -21,6 +21,7 @@ tauri-build = {version = "2.0.0-rc.0", features = [] }
 anyhow = "1.0.86"
 bytes = {version = "1.7.1", features = ["serde"] }
 discord-rpc-client = "0.4.0"
+ffmpeg-next = "7.0.4"
 futures-util = "0.3.30"
 hex = "0.4.3"
 http = "1.1.0"
@@ -40,6 +41,7 @@ tauri-plugin-store = "2.0.0-rc.0"
 tokio = "1.39.3"
 tokio-util = "0.7.11"
 url = "2.5.2"
+urlencoding = "2.1.3"
 
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-single-instance = "2.0.0-rc.0"

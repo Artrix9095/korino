@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./tailwind": "./src/tailwind.cjs"
   },
   "license": "MIT",
   "scripts": {
@@ -18,7 +19,6 @@
     "@korino/prettier-config": "workspace:*",
     "@korino/tailwind-config": "workspace:*",
     "@korino/tsconfig": "workspace:*",
-    
     "eslint": "^9.8.0",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4"
