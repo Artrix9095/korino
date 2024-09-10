@@ -1,7 +1,7 @@
 import type { Message } from "roarr";
 import { logLevels, Roarr, ROARR } from "roarr";
 
-// @ts-expect-error - no types
+// @ts-ignore no types
 const isBrowser = typeof window !== "undefined";
 // export const withLogfile = (logfile: string) =>
 //   new pino.transports.File({ filename: logfile });

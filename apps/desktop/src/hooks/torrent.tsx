@@ -27,7 +27,7 @@ export const useMutateTorrent = (
   hostname?: string,
   enabled = true,
 ) =>
-  useQuery<{ id: number }>({
+  useQuery({
     queryKey: ["torrents"],
     enabled: !!hostname && enabled,
 
@@ -36,14 +36,14 @@ export const useMutateTorrent = (
         method: "POST",
         body: url,
       }).then(async (r) => {
-        const json = await r.json();
+        const json = (await r.json()) as { id: number; human_readable: string };
         // Duplicate torrent
         if (r.status === 409) {
           logger.warn("Duplicate torrent");
           console.log(json);
-          const match = json.human_readable.match(/id=(\d+)/);
-          const id = match ? parseInt(match[1], 10) : undefined;
-          return { id: id };
+          const match = /id=(\d+)/.exec(json.human_readable);
+          const id = match ? parseInt(match[1] ?? "0", 10) : undefined;
+          return { id: id ?? 0 };
         }
         return r;
       }),

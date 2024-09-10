@@ -1,20 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
-
 import "@vidstack/react/player/styles/base.css";
 
-import { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { convertFileSrc, invoke } from "@tauri-apps/api/core";
+import { createFileRoute } from "@tanstack/react-router";
 
+import type { MediaPlayerInstance } from "@korino/media-player";
 import { DefaultPlayer, VideoLayout } from "@korino/media-player";
 
-import { usePaths, useSettings } from "~/hooks/tauri";
-import {
-  useMutateTorrent,
-  useTorrentPlaylist,
-  useTorrentServer,
-  useTorrentStart,
-} from "~/hooks/torrent";
+import { useSettings } from "~/hooks/tauri";
+import { useTorrentServer } from "~/hooks/torrent";
 
 interface TorrentMedia {
   src: string;
@@ -35,6 +29,7 @@ const TorrentPlayer = () => {
     settings?.server.hostname,
     settings?.server.downloadPath,
   );
+  const player = React.useRef<MediaPlayerInstance>(null);
 
   const { data: playlist } = useQuery<TorrentPlaylist[]>({
     queryKey: ["playlist", TORRENT_URL],
@@ -51,11 +46,11 @@ const TorrentPlayer = () => {
       <main>
         {playlist ? (
           <DefaultPlayer
-          
+            ref={player}
             src={playlist.flatMap((p) =>
               p.media.map((m) => ({
                 src: m.src,
-                type: "video/webm",
+                type: "video/mpeg",
               })),
             )}
           >
